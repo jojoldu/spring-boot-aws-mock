@@ -81,6 +81,11 @@ public class SampleController {
 }
 ```
 
+Run Test & Show Log
+
+![log](./images/log.png)
+
+
 ### Options
 
 
