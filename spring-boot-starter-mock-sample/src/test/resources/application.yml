@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: beta
+    active: local
 cloud:
   aws:
     region:
