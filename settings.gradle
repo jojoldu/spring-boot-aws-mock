@@ -1,0 +1,3 @@
+rootProject.name = 'spring-boot-aws-mock'
+
+include 'spring-boot-starter-mock-sqs', 'spring-boot-starter-mock-sample'
