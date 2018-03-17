@@ -1,0 +1,14 @@
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+
+sqs:
+  mock:
+    enabled: true
+  queueNames: {
+    "basic": "basic",
+    "basicDlq": "basic-dlq",
+    "point": "point",
+    "pointDlq": "point-dlq"
+  }
