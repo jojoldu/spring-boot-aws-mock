@@ -18,12 +18,3 @@ sqs:
   mock:
     enabled: true
 
----
-spring:
-  profiles: beta
-
-cloud:
-  aws:
-    credentials:
-      accessKey:
-      secretKey:

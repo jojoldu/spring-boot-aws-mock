@@ -1,6 +1,7 @@
 package com.github.jojoldu.sample.dto;
 
 import com.github.jojoldu.sample.domain.Point;
+import com.github.jojoldu.sample.domain.PointDlq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,14 @@ public class PointDto {
 
     public Point toEntity() {
         return Point.builder()
+                .userId(userId)
+                .point(savePoint)
+                .description(description)
+                .build();
+    }
+
+    public PointDlq toDlqEntity() {
+        return PointDlq.builder()
                 .userId(userId)
                 .point(savePoint)
                 .description(description)

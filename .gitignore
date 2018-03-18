@@ -2,6 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 out
+spring-boot-starter-mock-sample/src/main/resources/credential-application.yml
 
 ### STS ###
 .apt_generated
