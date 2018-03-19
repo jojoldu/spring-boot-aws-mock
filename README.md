@@ -76,11 +76,11 @@ Controller.java
 ```java
 public class SampleController {
     @Autowired private QueueMessagingTemplate messagingTemplate;
-    @Autowired private SqsQueueNames sqsQueueNames; // Queue name Collection Object
+    @Autowired private SqsQueues sqsQueues; // Queue name Collection Object
 
     @PostMapping("/url")
     public String save(@RequestBody RequestDto requestDto){
-        String queueName = sqsQueueNames.getQueueName("key1");
+        String queueName = sqsQueues.getQueueName("key1");
         messagingTemplate.convertAndSend(queueName, requestDto);
         ...
     }

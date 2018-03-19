@@ -28,13 +28,13 @@ import java.io.IOException;
 @RestController
 public class PointController {
     private QueueMessagingTemplate messagingTemplate;
-    private SqsQueues sqsQueueNames;
+    private SqsQueues sqsQueues;
     private PointRepository pointRepository;
     private ObjectMapper objectMapper;
 
     @PostMapping("/point")
     public String save(@RequestBody PointDto requestDto){
-        messagingTemplate.convertAndSend(sqsQueueNames.getQueueName("point"), requestDto);
+        messagingTemplate.convertAndSend(sqsQueues.getQueueName("point"), requestDto);
         return "success";
     }
 
