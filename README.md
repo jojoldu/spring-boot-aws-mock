@@ -122,15 +122,14 @@ sqs:
 
 * sqs.mock.enabled = true // Required
       
-| AWS SQS                       | MOCK SQS                         |
-|-------------------------------|----------------------------------|
-| VisibilityTimeout             | defaultVisibilityTimeout         |
-| DelaySeconds                  | delay                            |
-| ReceiveMessageWaitTimeSeconds | receiveMessageWait               |
-| RedrivePolicy                 | deadLettersQueue                 |
-| RedrivePolicy.name            | deadLettersQueue.name            |
-| RedrivePolicy.maxReceiveCount | deadLettersQueue.maxReceiveCount |
-
+| AWS SQS                       | MOCK SQS                         | Default Value |
+|-------------------------------|----------------------------------|---------------|
+| VisibilityTimeout             | defaultVisibilityTimeout         | 30 (s)        |
+| DelaySeconds                  | delay                            | 0  (s)        |
+| ReceiveMessageWaitTimeSeconds | receiveMessageWait               | 0  (s)        |
+| RedrivePolicy                 | deadLettersQueue                 | null          |
+| RedrivePolicy.name            | deadLettersQueue.name            | null          |
+| RedrivePolicy.maxReceiveCount | deadLettersQueue.maxReceiveCount | null          |
 ## Example
 
 [Sample Project](https://github.com/jojoldu/spring-boot-aws-mock/tree/master/spring-boot-starter-mock-sample)
