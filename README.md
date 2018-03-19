@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.5'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.6'
 }
 ```
 
@@ -54,9 +54,20 @@ cloud:
 sqs:
   mock:
     enabled: true //required
-  queueNames: { //required
-    "key1": "queueName1",
-    "key2": "queueName2"
+  queues: {
+    "key1dlq": {
+      "name": "key1-dlq"
+    },
+    "key1": {
+      "name": "key1",
+      "defaultVisibilityTimeout": 1,
+      "delay": 0,
+      "receiveMessageWait": 0,
+      "deadLettersQueue": {
+        "name": "key1-dlq",
+        "maxReceiveCount": 1
+      }
+    }
   }
 ```
 
@@ -69,12 +80,12 @@ public class SampleController {
 
     @PostMapping("/url")
     public String save(@RequestBody RequestDto requestDto){
-        String queueName = sqsQueueNames.getQueue("key1");
+        String queueName = sqsQueueNames.getQueueName("key1");
         messagingTemplate.convertAndSend(queueName, requestDto);
         ...
     }
 
-    @SqsListener(value = "${sqs.queueNames.key1}")
+    @SqsListener(value = "${sqs.queue.key1.name}")
     public void receive(String message, @Header("SenderId") String senderId) throws IOException {
         ...
     }
@@ -92,7 +103,22 @@ Run Test & Show Log
 ```yml
 sqs:
   mock:
-    port: custom port
+    port: your mock sqs server port
+  queues: {
+    "key1dlq": { // key1 dead letter queue
+      "name": "key1-dlq" // queue name
+    },
+    "key1": {
+      "name": "key1",
+      "defaultVisibilityTimeout": 1,
+      "delay": 0,
+      "receiveMessageWait": 0,
+      "deadLettersQueue": { // dead letter queue
+        "name": "key1-dlq",
+        "maxReceiveCount": 1
+      }
+    }
+ 
 ```
 
 ## Example
