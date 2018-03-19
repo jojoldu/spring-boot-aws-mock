@@ -1,7 +1,6 @@
 package com.github.jojoldu.sample.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jojoldu.sample.domain.PointDlqRepository;
 import com.github.jojoldu.sample.domain.PointRepository;
 import com.github.jojoldu.sample.dto.PointDto;
 import com.github.jojoldu.sqs.config.SqsQueueNames;
@@ -31,7 +30,6 @@ public class PointController {
     private QueueMessagingTemplate messagingTemplate;
     private SqsQueueNames sqsQueueNames;
     private PointRepository pointRepository;
-    private PointDlqRepository pointDlqRepository;
     private ObjectMapper objectMapper;
 
     @PostMapping("/point")
@@ -51,17 +49,4 @@ public class PointController {
             log.error("Point Save Fail: "+ message, e);
         }
     }
-
-    @SqsListener(value = "${sqs.queueNames.pointDlq}", deletionPolicy = SqsMessageDeletionPolicy.NEVER)
-    public void receiveDlq(String message, @Header("SenderId") String senderId, Acknowledgment ack) throws IOException {
-        log.info("[Dead Letter Queue] senderId: {}, message: {}", senderId, message);
-        PointDto messageObject = objectMapper.readValue(message, PointDto.class);
-        try{
-            pointDlqRepository.save(messageObject.toDlqEntity());
-            ack.acknowledge().get();
-        } catch (Exception e){
-            log.error("Dead Letter Queue Save Fail: "+ message, e);
-        }
-    }
-
 }
