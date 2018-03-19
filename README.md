@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.6'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.7'
 }
 ```
 
@@ -98,6 +98,27 @@ Run Test & Show Log
 
 
 ### Options
+
+```yml
+sqs:
+  mock:
+    enabled: true //required
+  queues: {
+    "key1dlq": {
+      "name": "key1-dlq"
+    },
+    "key1": {
+      "name": "key1",
+      "defaultVisibilityTimeout": 1,
+      "delay": 0,
+      "receiveMessageWait": 0,
+      "deadLettersQueue": {
+        "name": "key1-dlq",
+        "maxReceiveCount": 1
+      }
+    }
+  }
+```
 
 * sqs.mock.enabled = true // Required
       
