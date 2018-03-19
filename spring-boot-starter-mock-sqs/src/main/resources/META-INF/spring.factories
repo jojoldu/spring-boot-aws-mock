@@ -2,4 +2,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.github.jojoldu.sqs.AwsMockSqsAutoConfiguration,\
 com.github.jojoldu.sqs.config.SqsProperties,\
-com.github.jojoldu.sqs.config.SqsQueueNames
+com.github.jojoldu.sqs.config.SqsQueues

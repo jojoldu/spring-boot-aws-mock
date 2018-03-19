@@ -7,7 +7,7 @@ import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqs;
 import com.github.jojoldu.sqs.config.SqsProperties;
-import com.github.jojoldu.sqs.config.SqsQueueNames;
+import com.github.jojoldu.sqs.config.SqsQueues;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
 import org.springframework.context.annotation.Bean;
@@ -25,11 +25,11 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnMockSqs
 public class AwsMockSqsAutoConfiguration {
     private SqsProperties sqsProperties;
-    private SqsQueueNames sqsQueueNames;
+    private SqsQueues sqsQueues;
 
-    public AwsMockSqsAutoConfiguration(SqsProperties sqsProperties, SqsQueueNames sqsQueueNames) {
+    public AwsMockSqsAutoConfiguration(SqsProperties sqsProperties, SqsQueues sqsQueues) {
         this.sqsProperties = sqsProperties;
-        this.sqsQueueNames = sqsQueueNames;
+        this.sqsQueues = sqsQueues;
     }
 
     @Bean
@@ -37,8 +37,8 @@ public class AwsMockSqsAutoConfiguration {
     @DependsOn("sqsRestServer")
     public AmazonSQSAsync amazonSqs() {
         AmazonSQSAsync sqsAsync = createMockSqsAsync();
-        sqsQueueNames.getQueueNames().values()
-                .forEach(sqsAsync::createQueue);
+        sqsQueues.getQueues().values()
+                .forEach(queue -> sqsAsync.createQueue(queue.createQueueRequest()));
         return sqsAsync;
     }
 

@@ -6,9 +6,20 @@ cloud:
     region:
       static: ap-northeast-2
 sqs:
-  queueNames: {
-    "point": "point",
-    "pointDlq": "point-dlq"
+  queues: {
+    "pointDlq": {
+      "name": "point-dlq"
+    },
+    "point": {
+      "name": "point",
+      "defaultVisibilityTimeout": 1,
+      "delay": 0,
+      "receiveMessageWait": 0,
+      "deadLettersQueue": {
+        "name": "point-dlq",
+        "maxReceiveCount": 1
+      }
+    }
   }
 
 ---
