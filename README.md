@@ -99,27 +99,16 @@ Run Test & Show Log
 
 ### Options
 
-
-```yml
-sqs:
-  mock:
-    port: your mock sqs server port
-  queues: {
-    "key1dlq": { // key1 dead letter queue
-      "name": "key1-dlq" // queue name
-    },
-    "key1": {
-      "name": "key1",
-      "defaultVisibilityTimeout": 1,
-      "delay": 0,
-      "receiveMessageWait": 0,
-      "deadLettersQueue": { // dead letter queue
-        "name": "key1-dlq",
-        "maxReceiveCount": 1
-      }
-    }
- 
-```
+* sqs.mock.enabled = true // Required
+      
+| AWS SQS                       | MOCK SQS                         |
+|-------------------------------|----------------------------------|
+| VisibilityTimeout             | defaultVisibilityTimeout         |
+| DelaySeconds                  | delay                            |
+| ReceiveMessageWaitTimeSeconds | receiveMessageWait               |
+| RedrivePolicy                 | deadLettersQueue                 |
+| RedrivePolicy.name            | deadLettersQueue.name            |
+| RedrivePolicy.maxReceiveCount | deadLettersQueue.maxReceiveCount |
 
 ## Example
 

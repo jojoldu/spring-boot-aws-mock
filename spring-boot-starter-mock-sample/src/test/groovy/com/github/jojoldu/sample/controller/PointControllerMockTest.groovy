@@ -60,7 +60,7 @@ class PointControllerMockTest extends Specification {
                 .willThrow(new IllegalArgumentException("fail"))
         when:
         restTemplate.postForEntity("/point", requestDto, String.class)
-        Thread.sleep(2000L)
+        Thread.sleep(1000L)
         List<Message> result = getMessagesFromQueue(POINT_DLQ)
 
         then:

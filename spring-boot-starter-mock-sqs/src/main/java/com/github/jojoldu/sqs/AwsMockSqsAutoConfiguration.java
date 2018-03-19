@@ -10,7 +10,7 @@ import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Primary;
  */
 
 @Configuration
+@EnableConfigurationProperties(value = {SqsProperties.class})
 @ConditionalOnMockSqs
 public class AwsMockSqsAutoConfiguration {
     private SqsProperties sqsProperties;
@@ -31,12 +32,6 @@ public class AwsMockSqsAutoConfiguration {
     public AwsMockSqsAutoConfiguration(SqsProperties sqsProperties, SqsQueues sqsQueues) {
         this.sqsProperties = sqsProperties;
         this.sqsQueues = sqsQueues;
-    }
-
-    @Bean
-    @ConfigurationProperties("sqs.mock")
-    public SqsProperties sqsProperties() {
-        return new SqsProperties();
     }
 
     @Bean

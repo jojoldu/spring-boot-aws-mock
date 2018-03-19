@@ -1,5 +1,7 @@
 package com.github.jojoldu.sqs.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.util.StringUtils;
  * Github : https://github.com/jojoldu
  */
 
+@Configuration
+@ConfigurationProperties("sqs.mock")
 public class SqsProperties {
 
     private String host;

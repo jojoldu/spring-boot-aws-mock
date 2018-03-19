@@ -1,8 +1,5 @@
 package com.github.jojoldu.sqs.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
 /**
@@ -11,8 +8,6 @@ import java.util.Map;
  * Github : https://github.com/jojoldu
  */
 
-@Component
-@ConfigurationProperties("sqs")
 public class SqsQueues {
     private Map<String, QueueData> queues;
 
