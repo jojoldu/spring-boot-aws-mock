@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+
+---
+spring:
+  profiles: local
+sqs:
+  mock:
+    enabled: true
+    server:
+      exist: true
+
+
+
