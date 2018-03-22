@@ -5,22 +5,6 @@ cloud:
   aws:
     region:
       static: ap-northeast-2
-sqs:
-  queues: {
-    "pointDlq": {
-      "name": "point-dlq"
-    },
-    "point": {
-      "name": "point",
-      "defaultVisibilityTimeout": 1,
-      "delay": 0,
-      "receiveMessageWait": 0,
-      "deadLettersQueue": {
-        "name": "point-dlq",
-        "maxReceiveCount": 1
-      }
-    }
-  }
 
 ---
 spring:
@@ -28,4 +12,18 @@ spring:
 sqs:
   mock:
     enabled: true
+#    server:
+#      exist: false
+  queues:
+    -
+      name: 'point-dlq'
+    -
+      name: 'point'
+      defaultVisibilityTimeout: 1
+      delay: 0
+      receiveMessageWait: 0
+      deadLettersQueue:
+        name: "point-dlq"
+        maxReceiveCount: 1
+
 

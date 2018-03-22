@@ -3,7 +3,6 @@ package com.github.jojoldu.sample.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jojoldu.sample.domain.PointRepository;
 import com.github.jojoldu.sample.dto.PointDto;
-import com.github.jojoldu.sqs.config.SqsQueues;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
@@ -28,17 +27,16 @@ import java.io.IOException;
 @RestController
 public class PointController {
     private QueueMessagingTemplate messagingTemplate;
-    private SqsQueues sqsQueues;
     private PointRepository pointRepository;
     private ObjectMapper objectMapper;
 
     @PostMapping("/point")
     public String save(@RequestBody PointDto requestDto){
-        messagingTemplate.convertAndSend(sqsQueues.getQueueName("point"), requestDto);
+        messagingTemplate.convertAndSend("point", requestDto);
         return "success";
     }
 
-    @SqsListener(value = "${sqs.queues.point.name}", deletionPolicy = SqsMessageDeletionPolicy.NEVER)
+    @SqsListener(value = "point", deletionPolicy = SqsMessageDeletionPolicy.NEVER)
     public void receive(String message, @Header("SenderId") String senderId, Acknowledgment ack) throws IOException {
         log.info("senderId: {}, message: {}", senderId, message);
         PointDto messageObject = objectMapper.readValue(message, PointDto.class);

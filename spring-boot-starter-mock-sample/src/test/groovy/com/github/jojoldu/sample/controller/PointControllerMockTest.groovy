@@ -25,7 +25,7 @@ import static org.mockito.Matchers.anyObject
  */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = "spring.config.location=classpath:/credential-application.yml")
+@TestPropertySource(properties = "spring.config.location=classpath:credential-application.yml, classpath:application.yml")
 class PointControllerMockTest extends Specification {
 
     @MockBean
