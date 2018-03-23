@@ -40,22 +40,6 @@ dependencies {
 }
 ```
 
-pom.xml
-
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
-<dependency>
-    <groupId>com.github.jojoldu</groupId>
-    <artifactId>spring-boot-aws-mock</artifactId>
-    <version>0.1.1</version>
-</dependency>
-```
 ## Usage
 
 ### Default
