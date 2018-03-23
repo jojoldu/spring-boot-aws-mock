@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.8'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.0.9'
 }
 ```
 
@@ -53,22 +53,10 @@ cloud:
 
 sqs:
   mock:
-    enabled: true //required
-  queues: {
-    "key1dlq": {
-      "name": "key1-dlq"
-    },
-    "key1": {
-      "name": "key1",
-      "defaultVisibilityTimeout": 1,
-      "delay": 0,
-      "receiveMessageWait": 0,
-      "deadLettersQueue": {
-        "name": "key1-dlq",
-        "maxReceiveCount": 1
-      }
-    }
-  }
+    enabled: true
+  queues:
+    -
+      name: 'key1' 
 ```
 
 Controller.java
@@ -76,16 +64,15 @@ Controller.java
 ```java
 public class SampleController {
     @Autowired private QueueMessagingTemplate messagingTemplate;
-    @Autowired private SqsQueues sqsQueues; // Queue name Collection Object
 
     @PostMapping("/url")
     public String save(@RequestBody RequestDto requestDto){
-        String queueName = sqsQueues.getQueueName("key1");
+        String queueName = "key1";
         messagingTemplate.convertAndSend(queueName, requestDto);
         ...
     }
 
-    @SqsListener(value = "${sqs.queue.key1.name}")
+    @SqsListener(value = "key1")
     public void receive(String message, @Header("SenderId") String senderId) throws IOException {
         ...
     }
@@ -103,21 +90,17 @@ Run Test & Show Log
 sqs:
   mock:
     enabled: true //required
-  queues: {
-    "key1dlq": {
-      "name": "key1-dlq"
-    },
-    "key1": {
-      "name": "key1",
-      "defaultVisibilityTimeout": 1,
-      "delay": 0,
-      "receiveMessageWait": 0,
-      "deadLettersQueue": {
-        "name": "key1-dlq",
-        "maxReceiveCount": 1
-      }
-    }
-  }
+  queues:
+    -
+      name: 'key1-dlq'
+    -
+      name: 'key1'
+      defaultVisibilityTimeout: 1
+      delay: 0
+      receiveMessageWait: 0
+      deadLettersQueue:
+        name: "point-dlq"
+        maxReceiveCount: 1
 ```
 
 * sqs.mock.enabled = true // Required
@@ -130,6 +113,7 @@ sqs:
 | RedrivePolicy                 | deadLettersQueue                 | null          |
 | RedrivePolicy.name            | deadLettersQueue.name            | null          |
 | RedrivePolicy.maxReceiveCount | deadLettersQueue.maxReceiveCount | null          |
+
 ## Example
 
 [Sample Project](https://github.com/jojoldu/spring-boot-aws-mock/tree/master/spring-boot-starter-mock-sample)
