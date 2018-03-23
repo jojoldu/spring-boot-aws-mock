@@ -12,9 +12,9 @@ spring:
 sqs:
   mock:
     enabled: true
-#    server:
-#      exist: false
   queues:
+    -
+      name: 'sample'
     -
       name: 'point-dlq'
     -

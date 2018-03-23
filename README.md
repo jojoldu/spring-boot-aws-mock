@@ -24,7 +24,6 @@ Spring Boot Starter support for Amazon Web Service Mocking.
   * Amazon Simple Queue Service
 
 
-
 ## Install
 
 Mock SQS
@@ -89,7 +88,9 @@ Run Test & Show Log
 ```yml
 sqs:
   mock:
-    enabled: true //required
+    enabled: true  //required
+    server:
+      exist: true  // Using an already created SQS local SQS server: true     
   queues:
     -
       name: 'key1-dlq'
@@ -103,7 +104,12 @@ sqs:
         maxReceiveCount: 1
 ```
 
-* sqs.mock.enabled = true // Required
+* sqs.mock.enabled
+  * **false** (**default**, not use local mock sqs)
+  * **true** (use local mock sqs) 
+* sqs.mock.server.exist
+  * **false** (**default**, create local mock sqs)
+  * **true** (Using an already created SQS local SQS server)
       
 | AWS SQS                       | MOCK SQS                         | Default Value |
 |-------------------------------|----------------------------------|---------------|
@@ -116,7 +122,8 @@ sqs:
 
 ## Example
 
-[Sample Project](https://github.com/jojoldu/spring-boot-aws-mock/tree/master/spring-boot-starter-mock-sample)
-
-
+* [Basic Sample Project](https://github.com/jojoldu/spring-boot-aws-mock/tree/master/spring-boot-starter-mock-sample)
+* Divided Provider Application & Consumer Application
+  * [Provider (create local sqs)](https://github.com/jojoldu/spring-boot-aws-mock/blob/master/spring-boot-starter-mock-sample/src/main/resources/application.yml)
+  * [Consumer (use local sqs)](https://github.com/jojoldu/spring-boot-aws-mock/blob/master/spring-boot-starter-mock-sample2/src/main/resources/application.yml)
 

@@ -5,25 +5,16 @@ cloud:
   aws:
     region:
       static: ap-northeast-2
-
+server:
+  port: 8090
 ---
 spring:
   profiles: local
 sqs:
   mock:
     enabled: true
-#    server:
-#      exist: false
-  queues:
-    -
-      name: 'point-dlq'
-    -
-      name: 'point'
-      defaultVisibilityTimeout: 1
-      delay: 0
-      receiveMessageWait: 0
-      deadLettersQueue:
-        name: "point-dlq"
-        maxReceiveCount: 1
+    server:
+      exist: true
+
 
 

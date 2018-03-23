@@ -1,0 +1,12 @@
+GET localhost:8080/sample
+
+###
+POST localhost:8080/point
+Content-Type: application/json
+
+{
+    "userId":0,
+    "savePoint":0,
+    "description": "str"
+}
+###
