@@ -40,7 +40,7 @@ class PointControllerTest extends Specification {
                 .build()
         when:
         ResponseEntity<String> response = restTemplate.postForEntity("/point", requestDto, String.class)
-        Thread.sleep(2000L)
+        Thread.sleep(5000L)
 
         then:
         response.getStatusCode() == HttpStatus.OK
