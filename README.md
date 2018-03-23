@@ -90,7 +90,7 @@ sqs:
   mock:
     enabled: true  //required
     server:
-      exist: true  // Using an already created SQS local SQS server: true     
+      exist: false  // Using an already created SQS local SQS server: true     
   queues:
     -
       name: 'key1-dlq'
@@ -108,8 +108,8 @@ sqs:
   * **false** (**default**, not use local mock sqs)
   * **true** (use local mock sqs) 
 * sqs.mock.server.exist
-  * **false** (**default**, create local mock sqs)
-  * **true** (Using an already created SQS local SQS server)
+  * **false** (**default**, auto create local mock sqs)
+  * **true** (Using an already created local SQS server)
       
 | AWS SQS                       | MOCK SQS                         | Default Value |
 |-------------------------------|----------------------------------|---------------|
