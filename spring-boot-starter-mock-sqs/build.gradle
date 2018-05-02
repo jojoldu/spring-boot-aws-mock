@@ -2,6 +2,9 @@ bootRepackage.enabled = false
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-aws-messaging')
 
+	compile ('org.projectlombok:lombok:1.16.20')
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
 	// ElasticMQ (for Mocking SQS)
 	compile group: 'org.elasticmq', name: 'elasticmq-core_2.12', version: '0.13.8'
 	compile group: 'org.elasticmq', name: 'elasticmq-rest-sqs_2.12', version: '0.13.8'

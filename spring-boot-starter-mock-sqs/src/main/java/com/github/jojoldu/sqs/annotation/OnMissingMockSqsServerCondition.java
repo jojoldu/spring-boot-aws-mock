@@ -6,8 +6,14 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.StringUtils;
 
-import static com.github.jojoldu.sqs.annotation.MockServerConstant.MOCK_SERVER_EXIST;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Optional;
+
+import static com.github.jojoldu.sqs.annotation.MockServerConstant.SQS_SERVER_PORT;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 3. 17.
@@ -20,12 +26,35 @@ class OnMissingMockSqsServerCondition extends SpringBootCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        String existMockServer = context.getEnvironment().getProperty(MOCK_SERVER_EXIST);
-        boolean match = "true".equals(existMockServer);
+        String sqsServerPort = getSqsServerPort(context);
+        boolean match = isRunning(sqsServerPort);
         return new ConditionOutcome(match, createMessage(match));
     }
 
-    private String createMessage(boolean match){
-        return match? "Use Created Mock Sqs Server" : "Created Mock Sqs Server";
+    private String getSqsServerPort(ConditionContext context) {
+        return Optional.ofNullable(context.getEnvironment().getProperty(SQS_SERVER_PORT))
+                .orElse("9324");
+    }
+
+    private boolean isRunning(String port) {
+        String line;
+        StringBuilder pidInfo = new StringBuilder();
+        try {
+            String command = String.format("netstat -nat | grep LISTEN|grep %s", port);
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            while ((line = input.readLine()) != null) {
+                pidInfo.append(line);
+            }
+        } catch (IOException ioe) {
+
+        }
+
+        return !StringUtils.isEmpty(pidInfo.toString());
+    }
+
+    private String createMessage(boolean match) {
+        return match ? "Use Created Mock Sqs Server" : "Created Mock Sqs Server";
     }
 }

@@ -10,6 +10,7 @@ import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqs;
 import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqsServer;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Primary;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
 @Configuration
 @ConditionalOnMockSqs
 public class AwsMockSqsServerAutoConfiguration {
@@ -65,5 +67,7 @@ public class AwsMockSqsServerAutoConfiguration {
                 .withInterface(sqsProperties.getHost())
                 .withPort(sqsProperties.getPort())
                 .start();
+
     }
+
 }
