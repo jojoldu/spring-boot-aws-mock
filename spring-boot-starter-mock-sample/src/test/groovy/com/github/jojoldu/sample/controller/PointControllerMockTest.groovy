@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
 
 import static org.mockito.BDDMockito.given
@@ -25,7 +24,6 @@ import static org.mockito.Matchers.anyObject
  */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = "spring.config.location=classpath:credential-application.yml")
 class PointControllerMockTest extends Specification {
 
     @MockBean

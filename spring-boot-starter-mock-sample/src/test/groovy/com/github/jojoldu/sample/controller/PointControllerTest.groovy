@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
 
 /**
@@ -18,7 +17,6 @@ import spock.lang.Specification
  */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = "spring.config.location=classpath:credential-application.yml")
 class PointControllerTest extends Specification {
 
     @Autowired

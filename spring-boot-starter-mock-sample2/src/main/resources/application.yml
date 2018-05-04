@@ -13,8 +13,7 @@ spring:
 sqs:
   mock:
     enabled: true
-    server:
-      exist: true
+
 
 
 

@@ -8,6 +8,7 @@ import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import com.github.jojoldu.sqs.annotation.ConditionalOnMissingMockSqsServer;
 import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqs;
 import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqsServer;
+import com.github.jojoldu.sqs.annotation.MockServerMessageType;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,7 @@ public class AwsMockSqsServerAutoConfiguration {
     @Primary
     @ConditionalOnMissingMockSqsServer
     public AmazonSQSAsync useMockAmazonSqs() {
+        log.info(MockServerMessageType.USE_SERVER.getMessage());
         return createMockSqsAsync();
     }
 
@@ -63,11 +65,12 @@ public class AwsMockSqsServerAutoConfiguration {
     @Bean
     @ConditionalOnMockSqsServer
     public SQSRestServer sqsRestServer() {
+        log.info(MockServerMessageType.CREATE_SERVER.getMessage());
+
         return SQSRestServerBuilder
                 .withInterface(sqsProperties.getHost())
                 .withPort(sqsProperties.getPort())
                 .start();
-
     }
 
 }

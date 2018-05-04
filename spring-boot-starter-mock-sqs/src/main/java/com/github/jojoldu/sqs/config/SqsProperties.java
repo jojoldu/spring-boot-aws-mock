@@ -10,6 +10,9 @@ import org.springframework.util.StringUtils;
 
 public class SqsProperties {
 
+    public static final String DEFAULT_HOST = "localhost";
+    public static final Integer DEFAULT_PORT = 9324;
+
     private String host;
     private Integer port;
 
@@ -18,11 +21,11 @@ public class SqsProperties {
     }
 
     public String getHost() {
-        return StringUtils.isEmpty(host)? "localhost" : host;
+        return StringUtils.isEmpty(host)? DEFAULT_HOST : host;
     }
 
     public Integer getPort() {
-        return port == null? 9324: port;
+        return port == null? DEFAULT_PORT: port;
     }
 
     public void setHost(String host) {
