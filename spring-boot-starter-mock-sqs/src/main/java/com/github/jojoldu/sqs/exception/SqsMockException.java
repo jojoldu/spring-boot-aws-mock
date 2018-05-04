@@ -11,6 +11,10 @@ import lombok.Getter;
 @Getter
 public class SqsMockException extends RuntimeException {
 
+    public SqsMockException(String message) {
+        super(message);
+    }
+
     public SqsMockException(String message, Throwable cause) {
         super(message, cause);
     }

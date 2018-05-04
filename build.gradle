@@ -30,7 +30,7 @@ subprojects {
 	apply plugin: 'io.spring.dependency-management'
 
 	group = 'com.github.jojoldu'
-	version = '0.1.1'
+	version = '0.1.2'
 	sourceCompatibility = 1.8
 
 	repositories {

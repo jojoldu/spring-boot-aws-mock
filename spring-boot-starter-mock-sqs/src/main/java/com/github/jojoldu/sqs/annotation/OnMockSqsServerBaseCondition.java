@@ -34,6 +34,8 @@ public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
     }
 
     boolean isRunning(String port) {
+        verifyOS();  // check OS
+
         String line;
         StringBuilder pidInfo = new StringBuilder();
         Process p = executeGrepProcessCommand(port);
@@ -62,6 +64,14 @@ public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
             String message = String.format("Execute Command Fail. command: %s",command);
             log.error(message , e);
             throw new SqsMockException(message, e);
+        }
+    }
+
+    private void verifyOS() {
+        if(isWindowsOS()){
+            String message = "Not available on Windows OS";
+            log.error(message);
+            throw new SqsMockException(message);
         }
     }
 
