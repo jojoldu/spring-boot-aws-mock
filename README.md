@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.1.1'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.1.2'
 }
 ```
 
