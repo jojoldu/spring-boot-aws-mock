@@ -3,19 +3,22 @@ package com.github.jojoldu.sample.controller
 import com.amazonaws.services.sqs.AmazonSQSAsync
 import com.amazonaws.services.sqs.model.GetQueueUrlRequest
 import com.amazonaws.services.sqs.model.Message
-import com.amazonaws.services.sqs.model.PurgeQueueRequest
 import com.amazonaws.services.sqs.model.ReceiveMessageRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.jojoldu.sample.domain.PointRepository
 import com.github.jojoldu.sample.dto.PointDto
+import com.github.jojoldu.sample.listener.Sample3Listener
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.web.client.TestRestTemplate
 import spock.lang.Specification
 
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+
+import static org.mockito.ArgumentMatchers.any
 import static org.mockito.BDDMockito.given
-import static org.mockito.Matchers.anyObject
 
 /**
  * Created by jojoldu@gmail.com on 2018. 3. 16.
@@ -24,7 +27,7 @@ import static org.mockito.Matchers.anyObject
  */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PointControllerMockTest extends Specification {
+class Sample3ControllerTest extends Specification {
 
     @MockBean
     PointRepository pointRepository
@@ -38,15 +41,10 @@ class PointControllerMockTest extends Specification {
     @Autowired
     AmazonSQSAsync sqs
 
-    static final def POINT_DLQ = "point-dlq"
+    @Autowired
+    Sample3Listener pointListener
 
-    void cleanup() {
-        String queueUrl = getQueueUrl(POINT_DLQ)
-        PurgeQueueRequest queue = new PurgeQueueRequest(queueUrl)
-        sqs.purgeQueue(queue)
-    }
-
-    def "ack실패하면 메세지는 Dead Letter Queue로 전송된다."() {
+    def "Ack fails, Go to the dlq."() {
         given:
         PointDto requestDto = PointDto.builder()
                 .userId(1L)
@@ -54,17 +52,16 @@ class PointControllerMockTest extends Specification {
                 .description("buy laptop")
                 .build()
 
-        given(pointRepository.save(anyObject()))
+        given(pointRepository.save(any()))
                 .willThrow(new IllegalArgumentException("fail"))
+
+        pointListener.setCountDownLatch(new CountDownLatch(1))
+
         when:
-        restTemplate.postForEntity("/point", requestDto, String.class)
-        Thread.sleep(2000L)
-        List<Message> result = getMessagesFromQueue(POINT_DLQ)
+        restTemplate.postForEntity("/sample3", requestDto, String.class)
 
         then:
-        result.size() == 1
-        PointDto body = objectMapper.readValue(result.get(0).getBody(), PointDto.class)
-        body.getUserId() == 1L
+        this.pointListener.getCountDownLatch().await(15, TimeUnit.SECONDS)
     }
 
     List<Message> getMessagesFromQueue(String queueName) {

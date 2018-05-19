@@ -77,7 +77,6 @@ public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
 
     boolean isWindowsOS(){
         String os = System.getProperty("os.name");
-        log.info("Your OS is {}", os);
         return os.contains("Windows");
     }
 

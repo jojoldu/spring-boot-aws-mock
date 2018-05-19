@@ -1,4 +1,5 @@
-bootRepackage.enabled = false
+bootJar { enabled = false }
+jar { enabled = true }
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-aws-messaging')
 

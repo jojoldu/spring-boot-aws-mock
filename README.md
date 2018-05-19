@@ -8,13 +8,13 @@ Spring Boot Starter support for Amazon Web Service Mocking.
 
 **Windows OS is not supported**
 
-### 0.x, 1.x
+### 0.1.x
 
 * Java 8
-* Spring Boot 1.5.x
+* Spring Boot 1.5
 * Spring Cloud 1.2.1
 
-### 2.x (Not Release)
+### 0.2.x 
 
 * Java 8
 * Spring Boot 2.x

@@ -14,14 +14,18 @@ sqs:
     enabled: true
   queues:
     -
-      name: 'point-dlq'
+      name: 'sample'
     -
-      name: 'point'
+      name: 'sample2'
+    -
+      name: 'sample3-dlq'
+    -
+      name: 'sample3'
       defaultVisibilityTimeout: 1
       delay: 0
       receiveMessageWait: 0
       deadLettersQueue:
-        name: "point-dlq"
+        name: "sample3-dlq"
         maxReceiveCount: 1
 
 
