@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.CountDownLatch;
@@ -33,13 +33,13 @@ public class Sample3ControllerTest{
     PointRepository pointRepository;
 
     @Autowired
-    TestRestTemplate restTemplate;
-
-    @Autowired
     ObjectMapper objectMapper;
 
     @Autowired
     Sample3Listener pointListener;
+
+    @Autowired
+    private QueueMessagingTemplate messagingTemplate;
 
     @Test
     public void Ack_fails_Go_to_the_dlq() throws Exception {
@@ -56,7 +56,7 @@ public class Sample3ControllerTest{
         pointListener.setCountDownLatch(new CountDownLatch(1));
 
         // when:
-        restTemplate.postForEntity("/sample3", requestDto, String.class);
+        messagingTemplate.convertAndSend("sample3", requestDto);
 
         // then:
         assertTrue(this.pointListener.getCountDownLatch().await(30, TimeUnit.SECONDS));

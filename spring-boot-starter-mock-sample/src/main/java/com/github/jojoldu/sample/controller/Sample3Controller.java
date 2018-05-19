@@ -22,7 +22,6 @@ public class Sample3Controller {
 
     @PostMapping("/sample3")
     public String save(@RequestBody PointDto requestDto){
-
         messagingTemplate.convertAndSend("sample3", requestDto);
         return "success";
     }

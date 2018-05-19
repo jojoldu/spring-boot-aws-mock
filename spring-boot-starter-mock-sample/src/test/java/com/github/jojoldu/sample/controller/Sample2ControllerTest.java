@@ -9,9 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class Sample2ControllerTest {
     PointRepository pointRepository;
 
     @Autowired
-    TestRestTemplate restTemplate;
+    private QueueMessagingTemplate messagingTemplate;
 
     @After
     public void cleanup() {
@@ -57,11 +55,10 @@ public class Sample2ControllerTest {
         sample2Listener.setCountDownLatch(new CountDownLatch(1));
 
         // when
-        ResponseEntity<String> response = restTemplate.postForEntity("/sample2", requestDto, String.class);
+        messagingTemplate.convertAndSend("sample2", requestDto);
 
         // then
         assertTrue(this.sample2Listener.getCountDownLatch().await(30, TimeUnit.SECONDS));
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Point> points = pointRepository.findAll();
         assertThat(points.isEmpty()).isEqualTo(false);
         assertThat(points.get(0).getPoint()).isEqualTo(1000L);
