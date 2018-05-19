@@ -13,7 +13,7 @@ sqs:
   mock:
     enabled: true
     host: localhost
-    port: 9325
+    port: 9324
   queues:
     -
       name: 'sample'

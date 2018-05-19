@@ -10,7 +10,6 @@ import org.springframework.util.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Optional;
 
 import static com.github.jojoldu.sqs.annotation.MockServerConstant.SQS_SERVER_PORT;
 
@@ -29,8 +28,9 @@ public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
     }
 
     String getSqsServerPort(ConditionContext context) {
-        return Optional.ofNullable(context.getEnvironment().getProperty(SQS_SERVER_PORT))
-                .orElse(String.valueOf(SqsProperties.DEFAULT_PORT));
+        String property = context.getEnvironment().getProperty(SQS_SERVER_PORT);
+        log.info("Mock SQS Server Port: {}", property);
+        return StringUtils.isEmpty(property)? String.valueOf(SqsProperties.DEFAULT_PORT): property;
     }
 
     boolean isRunning(String port) {

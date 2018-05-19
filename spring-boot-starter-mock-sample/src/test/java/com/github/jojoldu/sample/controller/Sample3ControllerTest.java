@@ -26,7 +26,7 @@ import static org.mockito.BDDMockito.given;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 public class Sample3ControllerTest{
 
     @MockBean
@@ -59,6 +59,6 @@ public class Sample3ControllerTest{
         messagingTemplate.convertAndSend("sample3", requestDto);
 
         // then:
-        assertTrue(this.pointListener.getCountDownLatch().await(30, TimeUnit.SECONDS));
+        assertTrue(this.pointListener.getCountDownLatch().await(15, TimeUnit.SECONDS));
     }
 }
