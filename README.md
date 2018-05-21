@@ -86,7 +86,32 @@ Run Test & Show Log
 
 ![log](./images/log.png)
 
+### Integration Test
 
+During integration testing, **you must specify any port** to prevent mock sqs server port conflicts.  
+(ex: ```@TestPropertySource(properties = {"sqs.mock.port=port"})``)
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@TestPropertySource(properties = {"sqs.mock.port=9325"}) // <<<< sqs server port
+public class Sample2ControllerTest {
+
+    @Autowired
+    Sample2Listener sample2Listener;
+
+    @Autowired
+    PointRepository pointRepository;
+
+    @Autowired
+    private QueueMessagingTemplate messagingTemplate;
+
+    @After
+    public void cleanup() {
+        pointRepository.deleteAllInBatch();
+    }
+}
+```
 ### Options
 
 ```yml
