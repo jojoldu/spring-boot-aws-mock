@@ -1,5 +1,6 @@
-package com.github.jojoldu.sqs.annotation;
+package com.github.jojoldu.sqs.annotation.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.Ordered;
@@ -13,14 +14,15 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 
 /**
- * 실행중인 Mock SQS 서버가 없을 경우
+ * 이미 Mock SQS 서버가 실행중인 경우
  */
+@Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE + 40)
-class OnMockSqsServerCondition extends OnMockSqsServerBaseCondition {
+class OnMissingMockSqsServerCondition extends OnMockSqsServerBaseCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
         boolean isRunning = isRunning(context);
-        return new ConditionOutcome(!isRunning, createMessage(isRunning));
+        return new ConditionOutcome(isRunning, createMessage(isRunning));
     }
 }

@@ -1,4 +1,4 @@
-package com.github.jojoldu.sqs.annotation;
+package com.github.jojoldu.sqs.annotation.server;
 
 import org.springframework.context.annotation.Conditional;
 

@@ -3,10 +3,10 @@ jdk:
 install:
    - echo ">>>>>>>>>> Running a custom install command"
    - ./gradlew clean build
-   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample"
+   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample/build/libs"
    - ls -al ./spring-boot-starter-mock-sample
-   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample2"
+   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample2/build/libs"
    - ls -al ./spring-boot-starter-mock-sample2
-   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sqs"
+   - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sqs/build/libs"
    - ls -al ./spring-boot-starter-mock-sqs
    - publishToMavenLocal

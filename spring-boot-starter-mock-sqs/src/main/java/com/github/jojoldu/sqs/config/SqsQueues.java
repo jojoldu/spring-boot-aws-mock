@@ -1,5 +1,9 @@
 package com.github.jojoldu.sqs.config;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -8,14 +12,9 @@ import java.util.List;
  * Github : https://github.com/jojoldu
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class SqsQueues {
     private List<QueueData> queues;
-
-    public List<QueueData> getQueues() {
-        return queues;
-    }
-
-    public void setQueues(List<QueueData> queues) {
-        this.queues = queues;
-    }
 }

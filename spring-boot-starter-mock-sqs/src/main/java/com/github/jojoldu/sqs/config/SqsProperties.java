@@ -1,5 +1,7 @@
 package com.github.jojoldu.sqs.config;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.util.StringUtils;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.util.StringUtils;
  * Github : https://github.com/jojoldu
  */
 
+@Setter
+@NoArgsConstructor
 public class SqsProperties {
 
     public static final String DEFAULT_HOST = "localhost";
@@ -26,13 +30,5 @@ public class SqsProperties {
 
     public Integer getPort() {
         return port == null? DEFAULT_PORT: port;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
     }
 }

@@ -1,4 +1,4 @@
-package com.github.jojoldu.sqs.annotation;
+package com.github.jojoldu.sqs.annotation.server;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 3. 22.

@@ -1,7 +1,6 @@
-package com.github.jojoldu.sqs.annotation;
+package com.github.jojoldu.sqs.annotation.server;
 
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -13,19 +12,15 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * Github : https://github.com/jojoldu
  */
 
+/**
+ * 실행중인 Mock SQS 서버가 없을 경우
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE + 40)
-class OnMockSqsCondition extends SpringBootCondition {
-
-    private static final String MOCK_ENABLED = "sqs.mock.enabled";
+class OnMockSqsServerCondition extends OnMockSqsServerBaseCondition {
 
     @Override
     public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        String mockEnabled = context.getEnvironment().getProperty(MOCK_ENABLED);
-        boolean match = "true".equals(mockEnabled);
-        return new ConditionOutcome(match, createMessage(match));
-    }
-
-    private String createMessage(boolean match){
-        return match? "Execute Mock Sqs" : "Execute AWS SQS";
+        boolean isRunning = isRunning(context);
+        return new ConditionOutcome(!isRunning, createMessage(isRunning));
     }
 }

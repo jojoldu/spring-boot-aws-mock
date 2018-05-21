@@ -1,6 +1,6 @@
 package com.github.jojoldu.sqs;
 
-import com.github.jojoldu.sqs.annotation.ConditionalOnMockSqs;
+import com.github.jojoldu.sqs.annotation.server.ConditionalOnMockSqs;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
 import org.springframework.boot.context.properties.ConfigurationProperties;

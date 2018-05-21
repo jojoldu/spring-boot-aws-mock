@@ -1,4 +1,4 @@
-package com.github.jojoldu.sqs.annotation;
+package com.github.jojoldu.sqs.annotation.server;
 
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.exception.SqsMockException;
@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static com.github.jojoldu.sqs.annotation.MockServerConstant.SQS_SERVER_PORT;
+import static com.github.jojoldu.sqs.annotation.server.MockServerConstant.SQS_SERVER_PORT;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 5. 4.
