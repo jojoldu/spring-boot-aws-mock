@@ -4,9 +4,9 @@ install:
    - echo ">>>>>>>>>> Running a custom install command"
    - ./gradlew clean build
    - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample/build/libs"
-   - ls -al ./spring-boot-starter-mock-sample
+   - ls -al ./spring-boot-starter-mock-sample/build/libs
    - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sample2/build/libs"
-   - ls -al ./spring-boot-starter-mock-sample2
+   - ls -al ./spring-boot-starter-mock-sample2/build/libs
    - echo ">>>>>>>>>> ls -al ./spring-boot-starter-mock-sqs/build/libs"
-   - ls -al ./spring-boot-starter-mock-sqs
-   - publishToMavenLocal
+   - ls -al ./spring-boot-starter-mock-sqs/build/libs
+   - ./gradlew publishToMavenLocal
