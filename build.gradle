@@ -17,6 +17,9 @@ allprojects {
 	apply plugin: 'com.github.kt3k.coveralls'
 	apply plugin: 'jacoco'
 
+	group = 'com.github.jojoldu'
+	version = '0.2.2'
+
 	repositories {
 		mavenCentral()
 		jcenter()
@@ -25,12 +28,28 @@ allprojects {
 
 subprojects {
 	apply plugin: 'java'
+	apply plugin: 'maven'
 	apply plugin: 'eclipse'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
 
-	group = 'com.github.jojoldu'
 	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
+
+	task javadocJar(type: Jar, dependsOn: javadoc) {
+		classifier = 'javadoc'
+		from javadoc.destinationDir
+	}
+
+	artifacts {
+		archives sourcesJar
+		archives javadocJar
+	}
 
 	repositories {
 		mavenCentral()
