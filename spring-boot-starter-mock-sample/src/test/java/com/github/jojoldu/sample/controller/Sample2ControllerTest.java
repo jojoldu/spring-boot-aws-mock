@@ -63,4 +63,26 @@ public class Sample2ControllerTest {
         assertThat(points.isEmpty()).isEqualTo(false);
         assertThat(points.get(0).getPoint()).isEqualTo(1000L);
     }
+
+    @Test
+    public void Earn_points_through_the_queue2() throws Exception {
+        // given
+        PointDto requestDto = PointDto.builder()
+                .userId(1L)
+                .savePoint(2000L)
+                .description("buy laptop")
+                .build();
+
+        sample2Listener.setCountDownLatch(new CountDownLatch(1));
+
+        // when
+        messagingTemplate.convertAndSend("sample2", requestDto);
+
+        // then
+        assertTrue(this.sample2Listener.getCountDownLatch().await(15, TimeUnit.SECONDS));
+        List<Point> points = pointRepository.findAll();
+        assertThat(points.isEmpty()).isEqualTo(false);
+        assertThat(points.get(0).getId()).isEqualTo(1L);
+        assertThat(points.get(0).getPoint()).isEqualTo(2000L);
+    }
 }
