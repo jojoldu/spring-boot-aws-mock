@@ -1,5 +1,6 @@
 package com.github.jojoldu.sqs.annotation.test;
 
+import com.github.jojoldu.sqs.exception.SqsMockException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -12,9 +13,11 @@ import java.net.ServerSocket;
  */
 
 @Slf4j
-public class RandomPortFinder {
+public class SqsMockTestUtils {
 
-    public static int findAvailablePort() throws IOException {
+    public static String RANDOM_PORT = "sqs.mock.port="+findAvailablePort();
+
+    public static int findAvailablePort() {
         for (int port = 10000; port <= 60000; port++) {
             try (ServerSocket serverSocket = new ServerSocket(port)) {
                 return serverSocket.getLocalPort();
@@ -24,6 +27,6 @@ public class RandomPortFinder {
 
         String message = "Not Found free port: 10000 ~ 60000";
         log.error(message);
-        throw new IOException(message);
+        throw new SqsMockException(message);
     }
 }
