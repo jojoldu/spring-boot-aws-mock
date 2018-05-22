@@ -1,7 +1,9 @@
 package com.github.jojoldu.sqs.config;
 
+import com.github.jojoldu.sqs.annotation.test.SqsMockTestUtils;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 /**
@@ -10,6 +12,7 @@ import org.springframework.util.StringUtils;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
 @Setter
 @NoArgsConstructor
 public class SqsProperties {
@@ -18,7 +21,7 @@ public class SqsProperties {
     public static final Integer DEFAULT_PORT = 9324;
 
     private String host;
-    private Integer port;
+    private String port;
 
     public String getEndPoint() {
         return String.format("http://%s:%s", getHost(), getPort());
@@ -29,6 +32,17 @@ public class SqsProperties {
     }
 
     public Integer getPort() {
-        return port == null? DEFAULT_PORT: port;
+        return SqsMockTestUtils.getOrCreatePort(port);
     }
+
+    private Integer getOrCreatePort(String port) {
+        if(StringUtils.isEmpty(port)) {
+            return DEFAULT_PORT;
+        }
+        if("random".equals(port)){
+            return SqsMockTestUtils.findAvailablePort();
+        }
+        return Integer.parseInt(port);
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.github.jojoldu.sqs.annotation.server;
 
-import com.github.jojoldu.sqs.config.SqsProperties;
+import com.github.jojoldu.sqs.annotation.test.SqsMockTestUtils;
 import com.github.jojoldu.sqs.exception.SqsMockException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
@@ -29,8 +29,7 @@ public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
 
     String getSqsServerPort(ConditionContext context) {
         String property = context.getEnvironment().getProperty(SQS_SERVER_PORT);
-        log.info("Mock SQS Server Port: {}", property);
-        return StringUtils.isEmpty(property)? String.valueOf(SqsProperties.DEFAULT_PORT): property;
+        return String.valueOf(SqsMockTestUtils.getOrCreatePort(property));
     }
 
     boolean isRunning(String port) {

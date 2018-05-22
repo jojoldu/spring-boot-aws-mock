@@ -12,6 +12,7 @@ spring:
 sqs:
   mock:
     enabled: true
+    port: random
   queues:
     -
       name: 'sample'

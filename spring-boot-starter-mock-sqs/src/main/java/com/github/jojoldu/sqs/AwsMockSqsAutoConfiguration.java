@@ -3,6 +3,7 @@ package com.github.jojoldu.sqs;
 import com.github.jojoldu.sqs.annotation.server.ConditionalOnMockSqs;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
 @Configuration
 @ConditionalOnMockSqs
 public class AwsMockSqsAutoConfiguration {
@@ -26,6 +28,7 @@ public class AwsMockSqsAutoConfiguration {
     @Bean
     @ConfigurationProperties("sqs.mock")
     public SqsProperties sqsProperties() {
+        log.info(">>>>>>> sqsProperties");
         return new SqsProperties();
     }
 

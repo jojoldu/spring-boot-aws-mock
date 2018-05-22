@@ -12,8 +12,6 @@ spring:
 sqs:
   mock:
     enabled: true
-    host: localhost
-    port: 9324
   queues:
     -
       name: 'sample'

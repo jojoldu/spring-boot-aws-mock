@@ -8,18 +8,6 @@ Spring Boot Starter support for Amazon Web Service Mocking.
 
 **Windows OS is not supported**
 
-### 0.1.x
-
-* Java 8
-* Spring Boot 1.5
-* Spring Cloud 1.2.1
-
-### 0.2.x 
-
-* Java 8
-* Spring Boot 2.x
-* Spring Cloud 2.x
-
 ## Mock Modules
 
 * SQS
@@ -38,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.1.2'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.2.7'
 }
 ```
 
@@ -89,35 +77,24 @@ Run Test & Show Log
 ### Integration Test
 
 During integration testing, **you must specify any port** to prevent mock sqs server port conflicts.  
-(ex: ```@TestPropertySource(properties = {"sqs.mock.port=port"})``)
 
-```java
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestPropertySource(properties = {"sqs.mock.port=9325"}) // <<<< sqs server port
-public class Sample2ControllerTest {
+src/**test**/resources/application.yml or application.properteis
 
-    @Autowired
-    Sample2Listener sample2Listener;
-
-    @Autowired
-    PointRepository pointRepository;
-
-    @Autowired
-    private QueueMessagingTemplate messagingTemplate;
-
-    @After
-    public void cleanup() {
-        pointRepository.deleteAllInBatch();
-    }
-}
+```yaml
+sqs:
+  mock:
+    port: random
 ```
+
+
 ### Options
 
 ```yml
 sqs:
   mock:
     enabled: true  //required
+    host: localhost
+    port: 9324
   queues:
     -
       name: 'key1-dlq'
@@ -131,10 +108,17 @@ sqs:
         maxReceiveCount: 1
 ```
 
-* sqs.mock.enabled
+* ```sqs.mock.enabled```
   * **false** (**default**, not use local mock sqs)
   * **true** (use local mock sqs) 
-      
+
+* ```sqs.mock.host```
+  * sqs server host
+
+* ```sqs.mock.port```
+  * sqs server port
+        
+
 | AWS SQS                       | MOCK SQS                         | Default Value |
 |-------------------------------|----------------------------------|---------------|
 | VisibilityTimeout             | defaultVisibilityTimeout         | 30 (s)        |
