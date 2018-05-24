@@ -2,7 +2,6 @@ package com.github.jojoldu.sqs.config;
 
 import com.github.jojoldu.sqs.annotation.test.SqsMockUtils;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -13,7 +12,6 @@ import org.springframework.util.StringUtils;
  */
 
 @Slf4j
-@Setter
 @NoArgsConstructor
 public class SqsProperties {
 
@@ -21,18 +19,29 @@ public class SqsProperties {
     public static final Integer DEFAULT_PORT = 9324;
 
     private String host;
-    private String port;
+    private Integer port;
 
     public String getEndPoint() {
         return String.format("http://%s:%s", getHost(), getPort());
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(String port) {
+        this.port = SqsMockUtils.getOrCreatePort(port);
     }
 
     public String getHost() {
         return StringUtils.isEmpty(host)? DEFAULT_HOST : host;
     }
 
+    /**
+     * properties에 값이 없을 경우 setter를 호출하지 않음
+     */
     public Integer getPort() {
-        return SqsMockUtils.getOrCreatePort(port);
+        return port == null? DEFAULT_PORT: port;
     }
 
 }

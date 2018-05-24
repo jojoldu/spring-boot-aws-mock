@@ -13,7 +13,6 @@ Spring Boot Starter support for Amazon Web Service Mocking.
 * SQS
   * Amazon Simple Queue Service
 
-
 ## Install
 
 ### Mock SQS
@@ -26,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.2.7'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.3.0'
 }
 ```
 
@@ -86,6 +85,7 @@ sqs:
     port: random
 ```
 
+This will run the server with the **new port each time** the Spring context is executed.
 
 ### Options
 
@@ -114,9 +114,11 @@ sqs:
 
 * ```sqs.mock.host```
   * sqs server host
+  * default: localhost
 
 * ```sqs.mock.port```
   * sqs server port
+  * default: 9324
         
 
 | AWS SQS                       | MOCK SQS                         | Default Value |

@@ -19,13 +19,15 @@ import static com.github.jojoldu.sqs.config.SqsProperties.DEFAULT_PORT;
 @Slf4j
 public class SqsMockUtils {
 
-    public static int getOrCreatePort(String propertyPort) {
-        if (StringUtils.isEmpty(propertyPort)) {
+    public static int getOrCreatePort(String port) {
+        if (StringUtils.isEmpty(port)) {
             return DEFAULT_PORT;
-        } else if ("random".equals(propertyPort)) {
+        } else if ("random".equals(port)) {
             return findAvailablePort();
         } else {
-            return Integer.parseInt(propertyPort);
+            log.info(">>>>>>>>>> " +
+                    "");
+            return Integer.parseInt(port);
         }
     }
 
