@@ -1,6 +1,6 @@
 package com.github.jojoldu.sqs.config;
 
-import com.github.jojoldu.sqs.annotation.test.SqsMockTestUtils;
+import com.github.jojoldu.sqs.annotation.test.SqsMockUtils;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,17 +32,7 @@ public class SqsProperties {
     }
 
     public Integer getPort() {
-        return SqsMockTestUtils.getOrCreatePort(port);
-    }
-
-    private Integer getOrCreatePort(String port) {
-        if(StringUtils.isEmpty(port)) {
-            return DEFAULT_PORT;
-        }
-        if("random".equals(port)){
-            return SqsMockTestUtils.findAvailablePort();
-        }
-        return Integer.parseInt(port);
+        return SqsMockUtils.getOrCreatePort(port);
     }
 
 }

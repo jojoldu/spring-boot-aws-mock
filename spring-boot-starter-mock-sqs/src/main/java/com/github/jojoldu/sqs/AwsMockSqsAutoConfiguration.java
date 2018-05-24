@@ -28,7 +28,6 @@ public class AwsMockSqsAutoConfiguration {
     @Bean
     @ConfigurationProperties("sqs.mock")
     public SqsProperties sqsProperties() {
-        log.info(">>>>>>> sqsProperties");
         return new SqsProperties();
     }
 

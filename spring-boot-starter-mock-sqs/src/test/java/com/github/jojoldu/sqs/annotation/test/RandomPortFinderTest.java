@@ -20,7 +20,7 @@ public class RandomPortFinderTest {
         ServerSocket serverSocket = new ServerSocket(10000);
 
         //when
-        int availablePort = SqsMockTestUtils.findAvailablePort();
+        int availablePort = SqsMockUtils.findAvailablePort();
 
         //then
         assertThat(availablePort).isEqualTo(10001);

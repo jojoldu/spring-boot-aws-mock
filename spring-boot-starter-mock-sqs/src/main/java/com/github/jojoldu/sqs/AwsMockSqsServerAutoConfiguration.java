@@ -11,6 +11,7 @@ import com.github.jojoldu.sqs.annotation.server.ConditionalOnMockSqsServer;
 import com.github.jojoldu.sqs.annotation.server.MockServerMessageType;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
@@ -26,16 +27,13 @@ import org.springframework.context.annotation.Primary;
  */
 
 @Slf4j
+@AllArgsConstructor
 @Configuration
 @ConditionalOnMockSqs
 public class AwsMockSqsServerAutoConfiguration {
     private SqsProperties sqsProperties;
     private SqsQueues sqsQueues;
 
-    public AwsMockSqsServerAutoConfiguration(SqsProperties sqsProperties, SqsQueues sqsQueues) {
-        this.sqsProperties = sqsProperties;
-        this.sqsQueues = sqsQueues;
-    }
 
     @Bean("amazonSqs")
     @Primary
