@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static com.github.jojoldu.sqs.config.SqsProperties.DEFAULT_PORT;
-
 /**
  * Created by jojoldu@gmail.com on 2018. 5. 21.
  * Blog : http://jojoldu.tistory.com
@@ -18,18 +16,6 @@ import static com.github.jojoldu.sqs.config.SqsProperties.DEFAULT_PORT;
 
 @Slf4j
 public class SqsMockUtils {
-
-    public static int getOrCreatePort(String port) {
-        if (StringUtils.isEmpty(port)) {
-            return DEFAULT_PORT;
-        } else if ("random".equals(port)) {
-            return findAvailablePort();
-        } else {
-            log.info(">>>>>>>>>> " +
-                    "");
-            return Integer.parseInt(port);
-        }
-    }
 
     public static int findAvailablePort() {
         for (int port = 10000; port <= 65535; port++) {
@@ -41,7 +27,7 @@ public class SqsMockUtils {
             }
         }
 
-        String message = "Not Found Available port: 10000 ~ 60000";
+        String message = "Not Found Available port: 10000 ~ 65535";
         log.error(message);
         throw new SqsMockException(message);
     }

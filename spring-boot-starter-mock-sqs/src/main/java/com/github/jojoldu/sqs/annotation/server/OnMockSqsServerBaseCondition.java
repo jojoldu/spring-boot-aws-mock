@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static com.github.jojoldu.sqs.annotation.server.MockServerConstant.SQS_SERVER_PORT;
+import static com.github.jojoldu.sqs.annotation.server.MockServerConstant.SQS_SERVER_RANDOM_PORT_ENABLED;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 5. 4.
@@ -23,15 +24,19 @@ import static com.github.jojoldu.sqs.annotation.server.MockServerConstant.SQS_SE
 public abstract class OnMockSqsServerBaseCondition extends SpringBootCondition {
 
     boolean isRunning(ConditionContext context){
-        String port = getSqsServerPort(context);
-        if("random".equals(port)){
+        Environment environment = context.getEnvironment();
+        if(isRandomPort(environment)){
             return false;
         }
-        return isRunning(port);
+
+        return isRunning(getSqsServerPort(environment));
     }
 
-    String getSqsServerPort(ConditionContext context) {
-        Environment environment = context.getEnvironment();
+    boolean isRandomPort(Environment environment){
+        return "true".equals(environment.getProperty(SQS_SERVER_RANDOM_PORT_ENABLED));
+    }
+
+    String getSqsServerPort(Environment environment) {
         return environment.getProperty(SQS_SERVER_PORT);
     }
 
