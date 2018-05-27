@@ -20,7 +20,7 @@ public class SqsMockUtils {
     public static int findAvailablePort() {
         for (int port = 10000; port <= 65535; port++) {
             try {
-                if(!isRunning(String.valueOf(port))){
+                if(!isRunning(executeGrepProcessCommand(port))){
                     return port;
                 }
             } catch (IOException ex) {
@@ -32,10 +32,9 @@ public class SqsMockUtils {
         throw new SqsMockException(message);
     }
 
-    private static boolean isRunning(String port) throws IOException{
+    private static boolean isRunning(Process p){
         String line;
         StringBuilder pidInfo = new StringBuilder();
-        Process p = executeGrepProcessCommand(port);
 
         try (BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
 
@@ -49,8 +48,8 @@ public class SqsMockUtils {
         return !StringUtils.isEmpty(pidInfo.toString());
     }
 
-    private static Process executeGrepProcessCommand(String port) throws IOException {
-        String command = String.format("netstat -nat | grep LISTEN|grep %s", port);
+    private static Process executeGrepProcessCommand(int port) throws IOException {
+        String command = String.format("netstat -nat | grep LISTEN|grep %d", port);
         String[] shell = {"/bin/sh", "-c", command};
         return Runtime.getRuntime().exec(shell);
     }
