@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:spring-boot-starter-mock-sqs:0.3.0'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.3.2'
 }
 ```
 
@@ -82,7 +82,7 @@ src/**test**/resources/application.yml or application.properteis
 ```yaml
 sqs:
   mock:
-    port: random
+    randomPortEnabled: true
 ```
 
 This will run the server with the **new port each time** the Spring context is executed.
@@ -93,6 +93,7 @@ This will run the server with the **new port each time** the Spring context is e
 sqs:
   mock:
     enabled: true  //required
+    randomPortEnabled: true
     host: localhost
     port: 9324
   queues:
@@ -111,7 +112,9 @@ sqs:
 * ```sqs.mock.enabled```
   * **false** (**default**, not use local mock sqs)
   * **true** (use local mock sqs) 
-
+* ```sqs.mock.randomPortEnabled```
+  * **false** (**default**, not use local mock sqs)
+  * **true** (use random port) 
 * ```sqs.mock.host```
   * sqs server host
   * default: localhost
