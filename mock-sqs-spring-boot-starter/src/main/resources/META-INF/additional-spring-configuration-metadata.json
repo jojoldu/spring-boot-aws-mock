@@ -1,0 +1,37 @@
+{
+  "groups": [{
+    "name": "sqs.mock",
+    "type": "com.github.jojoldu.sqs.config.SqsProperties",
+    "sourceType": "com.github.jojoldu.sqs.config.SqsProperties"
+  }],
+  "properties": [
+    {
+      "name": "sqs.mock.enabled",
+      "type": "java.lang.Boolean",
+      "description": "true or false.",
+      "defaultValue": false
+    },
+    {
+      "name": "sqs.mock.randomPortEnabled",
+      "type": "java.lang.Boolean",
+      "description": "true or false.",
+      "defaultValue": false
+    },
+    {
+      "name": "sqs.mock.host",
+      "type": "java.lang.String",
+      "description": "Your Mock Sqs Server Host.",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "sqs.mock.port",
+      "type": "java.lang.Integer",
+      "description": "Your Mock Sqs Server Port.",
+      "defaultValue": 9324
+    },
+    {
+      "name": "sqs.mock.queues",
+      "type": "java.util.List<com.github.jojoldu.sqs.config.QueueData>"
+    }
+  ]
+}

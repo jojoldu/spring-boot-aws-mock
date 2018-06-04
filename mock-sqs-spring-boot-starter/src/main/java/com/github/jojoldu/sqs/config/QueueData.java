@@ -20,6 +20,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public class QueueData {
+
     private String name;
     private Long defaultVisibilityTimeout = 3L;
     private Long delay = 0L;

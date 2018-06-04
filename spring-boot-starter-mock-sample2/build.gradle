@@ -1,7 +1,7 @@
 apply plugin: 'groovy'
 
 dependencies {
-	compile project(":spring-boot-starter-mock-sqs")
+	compile project(":mock-sqs-spring-boot-starter")
 
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-web')
