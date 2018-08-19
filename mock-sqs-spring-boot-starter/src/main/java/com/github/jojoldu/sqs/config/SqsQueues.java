@@ -1,5 +1,6 @@
 package com.github.jojoldu.sqs.config;
 
+import com.amazonaws.services.sqs.AmazonSQSAsync;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,4 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 public class SqsQueues {
     private List<QueueData> queues;
+
+    public void createQueue(AmazonSQSAsync sqsAsync){
+        this.queues.forEach(queueData -> sqsAsync.createQueue(queueData.createQueueRequest()));
+    }
 }

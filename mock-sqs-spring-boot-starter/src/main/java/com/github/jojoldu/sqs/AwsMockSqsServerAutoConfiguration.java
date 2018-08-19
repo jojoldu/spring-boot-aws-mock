@@ -11,7 +11,7 @@ import com.github.jojoldu.sqs.annotation.server.ConditionalOnMockSqsServer;
 import com.github.jojoldu.sqs.annotation.server.MockServerMessageType;
 import com.github.jojoldu.sqs.config.SqsProperties;
 import com.github.jojoldu.sqs.config.SqsQueues;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
@@ -27,13 +27,12 @@ import org.springframework.context.annotation.Primary;
  */
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Configuration
 @ConditionalOnMockSqs
 public class AwsMockSqsServerAutoConfiguration {
-    private SqsProperties sqsProperties;
-    private SqsQueues sqsQueues;
-
+    private final SqsProperties sqsProperties;
+    private final SqsQueues sqsQueues;
 
     @Bean("amazonSqs")
     @Primary
@@ -49,18 +48,19 @@ public class AwsMockSqsServerAutoConfiguration {
     @ConditionalOnMockSqsServer
     public AmazonSQSAsync createMockAmazonSqs() {
         AmazonSQSAsync sqsAsync = createMockSqsAsync();
-        sqsQueues.getQueues().forEach(queueData -> sqsAsync.createQueue(queueData.createQueueRequest()));
+        sqsQueues.createQueue(sqsAsync);
         return sqsAsync;
     }
 
     private AmazonSQSAsync createMockSqsAsync() {
-        AmazonSQSAsyncClientBuilder sqsBuilder = AmazonSQSAsyncClientBuilder.standard();
-        sqsBuilder.setCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("x", "x")));
-        sqsBuilder.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(sqsProperties.getEndPoint(), ""));
-        return sqsBuilder.build();
+        return AmazonSQSAsyncClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("x", "x")))
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(sqsProperties.getEndPoint(), ""))
+                .build();
     }
 
     @Bean
+    @Primary
     @ConditionalOnMockSqsServer
     public SQSRestServer sqsRestServer() {
         log.info(MockServerMessageType.CREATE_SERVER.getMessage());
@@ -70,5 +70,4 @@ public class AwsMockSqsServerAutoConfiguration {
                 .withPort(sqsProperties.getPort())
                 .start();
     }
-
 }
