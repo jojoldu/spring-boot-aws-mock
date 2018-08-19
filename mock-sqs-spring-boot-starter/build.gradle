@@ -1,9 +1,9 @@
 bootJar { enabled = false }
 jar { enabled = true }
+
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-aws-messaging')
 
-	compile ('org.projectlombok:lombok:1.16.20')
 	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
 	// ElasticMQ (for Mocking SQS)
