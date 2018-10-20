@@ -2,5 +2,6 @@ rootProject.name = 'spring-boot-aws-mock'
 
 include 'mock-sqs-spring-boot-starter',
         'mock-s3-spring-boot-starter',
+        'mock-redis-spring-boot-starter',
         'spring-boot-starter-mock-sample',
         'spring-boot-starter-mock-sample2'
