@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.3.RELEASE'
+		springBootVersion = '2.0.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -54,11 +54,11 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
-		maven { url 'https://repo.spring.io/libs-milestone' }
 	}
 
 	dependencies {
 		compile ('org.projectlombok:lombok:1.18.2')
+		compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 		testCompile('org.springframework.boot:spring-boot-starter-test')
 	}
 
