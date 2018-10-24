@@ -1,4 +1,4 @@
-package com.github.jojoldu.sqs.annotation.test;
+package com.github.jojoldu.sqs.annotation.utils;
 
 import com.github.jojoldu.sqs.exception.SqsMockException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +15,12 @@ import java.io.InputStreamReader;
  */
 
 @Slf4j
-public class SqsMockUtils {
+public class RandomPortFinder {
 
     public static int findAvailablePort() {
-        for (int port = 10000; port <= 65535; port++) {
+        for (int i=0; i<1000; i++) {
             try {
+                int port = getRandomPort();
                 if(!isRunning(executeGrepProcessCommand(port))){
                     return port;
                 }
@@ -30,6 +31,10 @@ public class SqsMockUtils {
         String message = "Not Found Available port: 10000 ~ 65535";
         log.error(message);
         throw new SqsMockException(message);
+    }
+
+    public static int getRandomPort() {
+        return (int) (Math.random() * 50000) + 10000;
     }
 
     private static boolean isRunning(Process p){

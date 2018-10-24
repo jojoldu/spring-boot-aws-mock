@@ -1,6 +1,6 @@
 package com.github.jojoldu.sqs.config;
 
-import com.github.jojoldu.sqs.annotation.test.SqsMockUtils;
+import com.github.jojoldu.sqs.annotation.utils.RandomPortFinder;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -37,7 +37,7 @@ public class SqsProperties {
 
     public void setRandomPortEnabled(String randomPortEnabled) {
         if(isRandomPortEnabled(randomPortEnabled)) {
-            this.port = SqsMockUtils.findAvailablePort();
+            this.port = RandomPortFinder.findAvailablePort();
         }
 
         this.randomPortEnabled = randomPortEnabled;
