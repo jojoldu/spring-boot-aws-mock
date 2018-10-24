@@ -1,8 +1,0 @@
-bootJar { enabled = false }
-jar { enabled = true }
-
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
-    compile('io.findify:s3mock_2.12:0.2.5')
-
-}

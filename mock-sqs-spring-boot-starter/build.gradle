@@ -5,6 +5,6 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-aws-messaging')
 
 	// ElasticMQ (for Mocking SQS)
-	compile group: 'org.elasticmq', name: 'elasticmq-core_2.12', version: '0.13.8'
-	compile group: 'org.elasticmq', name: 'elasticmq-rest-sqs_2.12', version: '0.13.8'
+	compile group: 'org.elasticmq', name: 'elasticmq-core_2.12', version: '0.14.6'
+	compile group: 'org.elasticmq', name: 'elasticmq-rest-sqs_2.12', version: '0.14.6'
 }
