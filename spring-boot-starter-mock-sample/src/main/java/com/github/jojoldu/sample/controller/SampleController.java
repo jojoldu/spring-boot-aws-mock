@@ -1,6 +1,6 @@
 package com.github.jojoldu.sample.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,11 @@ import java.time.LocalDate;
  * Github : https://github.com/jojoldu
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 public class SampleController {
 
-    private QueueMessagingTemplate messagingTemplate;
+    private final QueueMessagingTemplate messagingTemplate;
 
     @GetMapping("/sample")
     public String save(){

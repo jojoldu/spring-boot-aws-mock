@@ -1,41 +1,58 @@
-buildscript {
-	ext {
-		springBootVersion = '2.0.6.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
-		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
-	}
+plugins {
+	id "java"
+	id "io.spring.dependency-management" version "1.0.8.RELEASE" apply false
+	id "org.springframework.boot" version "2.2.1.RELEASE" apply false
+	id "com.github.kt3k.coveralls" version "2.8.2"
+	id 'com.gorylenko.gradle-git-properties' version '2.2.0'
+	id "jacoco"
 }
 
-allprojects {
-	apply plugin: 'com.github.kt3k.coveralls'
-	apply plugin: 'jacoco'
-
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
-}
+def sampleProject = [project(':spring-boot-starter-mock-sample'), project('::spring-boot-starter-mock-sample2')]
+def sdkProject = [project(':mock-sqs-spring-boot-starter')]
 
 subprojects {
 	apply plugin: 'java'
 	apply plugin: 'maven'
 	apply plugin: 'eclipse'
+	apply plugin: 'com.gorylenko.gradle-git-properties'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'com.github.kt3k.coveralls'
+	apply plugin: 'jacoco'
 
 	group = 'com.github.jojoldu'
-	version = '0.3.6'
+	version = '0.4.0'
 
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven { url 'https://jitpack.io' }
+	}
+
+	dependencies {
+		annotationProcessor 'org.projectlombok:lombok'
+		implementation 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.projectlombok:lombok'
+
+		implementation('org.springframework.boot:spring-boot-starter')
+		testImplementation('org.springframework.boot:spring-boot-starter-test')
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom 'org.springframework.cloud:spring-cloud-aws:2.1.4.RELEASE'
+		}
+	}
 	task sourcesJar(type: Jar, dependsOn: classes) {
 		classifier = 'sources'
 		from sourceSets.main.allSource
@@ -51,23 +68,6 @@ subprojects {
 		archives javadocJar
 	}
 
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
-
-	dependencies {
-		compile ('org.projectlombok:lombok:1.18.2')
-		compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-		testCompile('org.springframework.boot:spring-boot-starter-test')
-	}
-
-	dependencyManagement {
-		imports {
-			mavenBom 'org.springframework.cloud:spring-cloud-aws:2.0.0.RELEASE'
-		}
-	}
-
 	jacocoTestReport {
 		reports {
 			html.enabled = true // human readable
@@ -76,8 +76,11 @@ subprojects {
 	}
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.5.1'
+configure(sdkProject) {
+
+	dependencies {
+		implementation('org.springframework.boot:spring-boot-starter-logging')
+	}
 }
 
 task jacocoRootReport(type: JacocoReport) {
@@ -96,3 +99,6 @@ coveralls {
 	sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
 	jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
+
+
+

@@ -1,7 +1,7 @@
 package com.github.jojoldu.sqs.annotation.server;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 5. 4.
@@ -10,10 +10,10 @@ import lombok.Getter;
  */
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum MockServerMessageType {
     USE_SERVER("Use Created Mock Sqs Server"),
     CREATE_SERVER("Create Mock Sqs Server");
 
-    private String message;
+    private final String message;
 }

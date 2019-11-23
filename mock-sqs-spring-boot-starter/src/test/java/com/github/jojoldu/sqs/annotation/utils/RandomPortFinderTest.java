@@ -27,13 +27,4 @@ public class RandomPortFinderTest {
         assertTrue(availablePort != usePort);
         serverSocket.close();
     }
-
-    @Test
-    public void 포트는_10000에서_60000사이여야한다() {
-        for(int i=0; i<10000;i++) {
-            int port = RandomPortFinder.getRandomPort();
-            assertTrue(port > 10000);
-            assertTrue(port <= 60000);
-        }
-    }
 }
