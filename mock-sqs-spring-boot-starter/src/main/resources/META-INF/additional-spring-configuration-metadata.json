@@ -31,7 +31,7 @@
     },
     {
       "name": "sqs.mock.queues",
-      "type": "java.util.List<com.github.jojoldu.sqs.config.QueueData>"
+      "type": "java.util.List<com.github.jojoldu.sqs.config.SqsQueues.SqsQueue>"
     }
   ]
 }
