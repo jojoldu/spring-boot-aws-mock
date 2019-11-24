@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.3.6'
+    compile 'com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.4.0'
 }
 ```
 
@@ -40,7 +40,8 @@ cloud:
   aws:
     region:
       static: ap-northeast-2 //aws region code (required)
-
+    stack:
+      auto: false // default required
 sqs:
   mock:
     enabled: true
