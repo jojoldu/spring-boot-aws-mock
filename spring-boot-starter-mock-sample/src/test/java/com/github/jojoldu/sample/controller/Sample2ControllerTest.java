@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
+import org.springframework.cloud.aws.messaging.listener.SimpleMessageListenerContainer;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class Sample2ControllerTest {
     private QueueMessagingTemplate messagingTemplate;
 
     @After
-    public void cleanup() {
+    public void tearDown() throws Exception {
         pointRepository.deleteAllInBatch();
     }
 

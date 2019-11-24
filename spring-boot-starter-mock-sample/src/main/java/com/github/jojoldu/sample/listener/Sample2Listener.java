@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jojoldu.sample.domain.PointRepository;
 import com.github.jojoldu.sample.dto.PointDto;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,12 @@ import java.util.concurrent.CountDownLatch;
  */
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class Sample2Listener {
 
-    @Autowired
-    private PointRepository pointRepository;
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final PointRepository pointRepository;
+    private final ObjectMapper objectMapper;
 
     @Getter
     @Setter

@@ -2,7 +2,8 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
-	implementation('org.springframework.cloud:spring-cloud-starter-aws-messaging')
+
+	implementation ('com.amazonaws:aws-java-sdk-sqs:1.11.681')
 
 	// ElasticMQ (for Mocking SQS)
 	implementation ('org.elasticmq:elasticmq-core_2.13:0.15.3')

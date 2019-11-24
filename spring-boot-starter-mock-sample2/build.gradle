@@ -1,15 +1,2 @@
-apply plugin: 'groovy'
-
 dependencies {
-	compile project(":mock-sqs-spring-boot-starter")
-
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-
-	compile('com.h2database:h2')
-	implementation('org.springframework.cloud:spring-cloud-starter-aws-messaging')
-
-	testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
-	testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
 }

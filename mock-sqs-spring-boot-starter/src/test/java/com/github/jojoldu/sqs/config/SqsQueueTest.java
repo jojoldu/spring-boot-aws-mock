@@ -10,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Github : https://github.com/jojoldu
  */
 
-public class QueueDataTest {
+public class SqsQueueTest {
 
     @Test
-    public void QueueData_default_attribute() {
-        QueueData queueData = new QueueData();
+    public void SqsQueue_default_attribute() {
+        SqsQueues.SqsQueue queueData = new SqsQueues.SqsQueue();
 
         assertThat(queueData.getDefaultVisibilityTimeout()).isEqualTo(3L);
         assertThat(queueData.getDelay()).isEqualTo(0L);

@@ -5,7 +5,8 @@ cloud:
   aws:
     region:
       static: ap-northeast-2
-
+    stack:
+      auto: false
 ---
 spring:
   profiles: local
