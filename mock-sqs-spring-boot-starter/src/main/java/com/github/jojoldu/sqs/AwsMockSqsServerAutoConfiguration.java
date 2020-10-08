@@ -33,6 +33,7 @@ public class AwsMockSqsServerAutoConfiguration {
 
 
     @Bean
+    @Primary
     @DependsOn("sqsRestServer")
     @ConditionalOnMockSqsServer
     public AmazonSQSAsync amazonSqs() {
